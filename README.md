@@ -313,22 +313,3 @@ FLUSH PRIVILEGES;
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📧 Contact
-
-- **GitHub**: [@CodinJack](https://github.com/CodinJack)
-- **Project Link**: [https://github.com/CodinJack/Expense-ify](https://github.com/CodinJack/Expense-ify)
-
-## 🙏 Acknowledgments
-
-- Cohere AI for providing the AI categorization and summary capabilities
-- AWS for reliable cloud hosting
-- Vercel for seamless frontend deployment
-
----
-
-**Made with ❤️ by CodinJack**
