@@ -8,6 +8,7 @@ const cohere = new CohereClient({
   token: process.env.COHERE_API_KEY,
 });
 
+
 const crypto = require("crypto");
 const path = require("path");
 const s3 = require("../utils/s3");
@@ -176,29 +177,31 @@ Expense description: "${description}"
 
 Category:`;
 
-      const response = await cohere.generate({
-        model: "command",
-        prompt,
+      const response = await cohere.chat({
+        model: "command-a-03-2025",
+        message: prompt,
         temperature: 0.3,
-        max_tokens: 15,
-        stop_sequences: ["\n", ".", "!", "?", ";"],
+        maxTokens: 15,
       });
+      
+      // if (!response.generations || !response.generations[0]) {
+      //   throw new Error("AI response was invalid");
+      // }
 
-      if (!response.generations || !response.generations[0]) {
-        throw new Error("AI response was invalid");
-      }
+      const rawPrediction = response.text;
+      
 
-      const rawPrediction = response.generations[0].text;
       const predictedCategory = processAIResponse(rawPrediction, categoryMap);
-
+      
       if (!predictedCategory) {
         throw new Error("Could not categorize expense");
       }
 
       const category_id = categoryMap[predictedCategory];
+      
 
       let receiptUrl = null;
-
+      
       if (req.file) {
         const fileExt = path.extname(req.file.originalname);
         const fileName = `receipts/${crypto.randomUUID()}${fileExt}`;
@@ -223,7 +226,9 @@ Category:`;
 
         receiptUrl = signedUrl;
       }
-
+      
+      
+    
       const [result] = await db.query(
         "INSERT INTO expenses (user_id, amount, description, category_id, receipt_url) VALUES (?, ?, ?, ?, ?)",
         [req.user.id, parsedAmount, description, category_id, receiptUrl]
@@ -239,6 +244,7 @@ Category:`;
 
     } catch (error) {
       console.error("Error adding expense with AI:", error);
+      
 
       try {
         const [defaultCategory] = await db.query(
