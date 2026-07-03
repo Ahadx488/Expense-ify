@@ -18,6 +18,7 @@ app.use(cors({
       'http://localhost:3000',
       'http://localhost:5173',
       'https://expense-ify.vercel.app',
+      'https://expense-ify-neon.vercel.app',
       /^http:\/\/192\.168\.\d{1,3}\.\d{1,3}(:\d+)?$/,
       /^http:\/\/10\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d+)?$/
     ];
