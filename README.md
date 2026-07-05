@@ -218,7 +218,25 @@ FLUSH PRIVILEGES;
    ```bash
    npm start
    ```
+# Production Architecture
 
+```
+                Vercel
+                  │
+                  │
+          React Frontend
+                  │
+          HTTPS (Nginx)
+                  │
+      AWS EC2 (Node + Express)
+          │               │
+          │               │
+      MySQL Database     AWS S3
+          │               │
+          └──── Cohere AI ────┘
+```
+
+---
 ## 📊 Usage
 
 1. **Register/Login**: Create an account or log in to access the expense tracker
@@ -237,7 +255,7 @@ FLUSH PRIVILEGES;
 
 ### Backend (AWS EC2)
 1. **Prepare EC2 Instance**:
-   - Launch Ubuntu 20.04 LTS EC2 instance
+   - Launch Ubuntu 24.04 LTS EC2 instance
    - Install Node.js, npm, and MySQL
    - Configure security groups
 
@@ -305,6 +323,16 @@ FLUSH PRIVILEGES;
 ### Export
 - `GET /api/export/pdf` - Export expenses as PDF
 - `GET /api/export/csv` - Export expenses as CSV
+
+# Future Improvements
+
+- OCR-based receipt parsing
+- Budget planning
+- Email notifications
+- Recurring expenses
+- Multi-currency support
+
+---
 
 ## 🤝 Contributing
 
